@@ -16,15 +16,17 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private String email;
     private String fone;
     private String senha;
 
     private Usuario(){
     }
 
-    public Usuario(Long id, String nome, String fone, String senha) {
+    public Usuario(Long id, String nome, String email, String fone, String senha) {
         this.id = id;
         this.nome = nome;
+        this.email = email;
         this.fone = fone;
         this.senha = senha;
     }
