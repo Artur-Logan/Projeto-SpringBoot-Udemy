@@ -1,10 +1,9 @@
 package com.arturlogan.cursospringboot.entitites;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +18,9 @@ public class Usuario implements Serializable {
     private String email;
     private String fone;
     private String senha;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Pedido> pedidos = new ArrayList<>();
 
     private Usuario(){
     }
@@ -61,6 +63,10 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
     @Override
