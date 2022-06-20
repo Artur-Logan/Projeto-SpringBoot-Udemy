@@ -1,5 +1,7 @@
 package com.arturlogan.cursospringboot.entitites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class Usuario implements Serializable {
     private String fone;
     private String senha;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<>();
 
