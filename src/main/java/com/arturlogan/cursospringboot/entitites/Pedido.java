@@ -1,5 +1,6 @@
 package com.arturlogan.cursospringboot.entitites;
 
+import com.arturlogan.cursospringboot.entitites.enuns.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -18,6 +19,8 @@ public class Pedido implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant momento;
 
+    private Integer pedidoStatus;
+
     @ManyToOne
     @JoinColumn(name = "clienteId")
     private Usuario cliente;
@@ -25,9 +28,10 @@ public class Pedido implements Serializable {
     private Pedido(){
     }
 
-    public Pedido(Long id, Instant momento, Usuario cliente) {
+    public Pedido(Long id, Instant momento, PedidoStatus pedidoStatus, Usuario cliente) {
         this.id = id;
         this.momento = momento;
+        setPedidoStatus(pedidoStatus);
         this.cliente = cliente;
     }
 
@@ -53,6 +57,16 @@ public class Pedido implements Serializable {
 
     public void setCliente(Usuario cliente) {
         this.cliente = cliente;
+    }
+
+    public PedidoStatus getPedidoStatus() {
+        return PedidoStatus.valueOf(pedidoStatus);
+    }
+
+    public void setPedidoStatus(PedidoStatus pedidoStatus) {
+        if (pedidoStatus != null){
+            this.pedidoStatus = pedidoStatus.getCodigo();
+        }
     }
 
     @Override
