@@ -1,7 +1,9 @@
 package com.arturlogan.cursospringboot.entitites;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Categoria {
@@ -10,6 +12,9 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @Transient
+    private Set<Produto> produtos;
 
     public Categoria(){
     }
@@ -33,6 +38,10 @@ public class Categoria {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<Produto> getProdutos() {
+        return produtos;
     }
 
     @Override
