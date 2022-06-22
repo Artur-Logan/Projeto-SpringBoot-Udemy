@@ -1,8 +1,10 @@
 package com.arturlogan.cursospringboot.config;
 
+import com.arturlogan.cursospringboot.entitites.Categoria;
 import com.arturlogan.cursospringboot.entitites.Pedido;
 import com.arturlogan.cursospringboot.entitites.Usuario;
 import com.arturlogan.cursospringboot.entitites.enuns.PedidoStatus;
+import com.arturlogan.cursospringboot.repositories.CategoriaRepository;
 import com.arturlogan.cursospringboot.repositories.PedidoRepository;
 import com.arturlogan.cursospringboot.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private PedidoRepository pedidoRepository;
 
+    @Autowired
+    private CategoriaRepository categoriaRepository;
+
     @Override
     public void run(String... args) throws Exception {
+
+        Categoria cat1 = new Categoria(null, "Eletronicos");
+        Categoria cat2 = new Categoria(null, "Livro");
+        Categoria cat3 = new Categoria(null, "Computadores");
+
+        categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 
         Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
         Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");

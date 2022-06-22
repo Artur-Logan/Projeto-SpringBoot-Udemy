@@ -9,9 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Usuario implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
