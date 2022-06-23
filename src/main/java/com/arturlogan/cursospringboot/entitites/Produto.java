@@ -1,6 +1,5 @@
 package com.arturlogan.cursospringboot.entitites;
 
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -17,7 +16,10 @@ public class Produto {
     private Double preço;
     private String imgUrl;
 
-    @Transient
+    @ManyToMany
+    @JoinTable(name = "db_produto_categoria",
+            joinColumns = @JoinColumn(name = "produtoId"),
+    inverseJoinColumns = @JoinColumn(name = "categoriaId"))
     private Set<Categoria> categorias = new HashSet<>();
 
     public Produto(){
@@ -69,6 +71,10 @@ public class Produto {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public Set<Categoria> getCategorias() {
+        return categorias;
     }
 
     @Override

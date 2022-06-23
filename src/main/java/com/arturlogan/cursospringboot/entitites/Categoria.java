@@ -1,5 +1,7 @@
 package com.arturlogan.cursospringboot.entitites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -13,7 +15,8 @@ public class Categoria {
     private Long id;
     private String nome;
 
-    @Transient
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categorias")
     private Set<Produto> produtos;
 
     public Categoria(){
