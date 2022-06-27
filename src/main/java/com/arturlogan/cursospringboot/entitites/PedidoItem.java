@@ -1,6 +1,7 @@
 package com.arturlogan.cursospringboot.entitites;
 
 import com.arturlogan.cursospringboot.entitites.pk.PedidoItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ import java.util.Objects;
 public class PedidoItem {
 
     @EmbeddedId
-    private PedidoItemPK id;
+    private PedidoItemPK id = new PedidoItemPK();
 
     private Integer quantidade;
     private Double preço;
@@ -25,6 +26,7 @@ public class PedidoItem {
         this.preço = preço;
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
         return id.getPedido();
     }

@@ -2,11 +2,14 @@ package com.arturlogan.cursospringboot.entitites;
 
 import com.arturlogan.cursospringboot.entitites.enuns.PedidoStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.type.SetType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Pedido implements Serializable {
@@ -16,6 +19,7 @@ public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant momento;
 
@@ -24,6 +28,9 @@ public class Pedido implements Serializable {
     @ManyToOne
     @JoinColumn(name = "clienteId")
     private Usuario cliente;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<PedidoItem> itens = new HashSet<>();
 
     private Pedido(){
     }
@@ -67,6 +74,10 @@ public class Pedido implements Serializable {
         if (pedidoStatus != null){
             this.pedidoStatus = pedidoStatus.getCodigo();
         }
+    }
+
+    public Set<PedidoItem> getItens(){
+        return itens;
     }
 
     @Override

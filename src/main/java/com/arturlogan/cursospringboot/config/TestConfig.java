@@ -1,14 +1,8 @@
 package com.arturlogan.cursospringboot.config;
 
-import com.arturlogan.cursospringboot.entitites.Categoria;
-import com.arturlogan.cursospringboot.entitites.Pedido;
-import com.arturlogan.cursospringboot.entitites.Produto;
-import com.arturlogan.cursospringboot.entitites.Usuario;
+import com.arturlogan.cursospringboot.entitites.*;
 import com.arturlogan.cursospringboot.entitites.enuns.PedidoStatus;
-import com.arturlogan.cursospringboot.repositories.CategoriaRepository;
-import com.arturlogan.cursospringboot.repositories.PedidoRepository;
-import com.arturlogan.cursospringboot.repositories.ProdutoRepository;
-import com.arturlogan.cursospringboot.repositories.UsuarioRepository;
+import com.arturlogan.cursospringboot.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +26,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private PedidoItemRepository pedidoItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -67,5 +64,12 @@ public class TestConfig implements CommandLineRunner {
 
         usuarioRepository.saveAll(Arrays.asList(u1, u2));
         pedidoRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        PedidoItem oi1 = new PedidoItem(o1, p1, 2, p1.getPreço());
+        PedidoItem oi2 = new PedidoItem(o1, p3, 1, p3.getPreço());
+        PedidoItem oi3 = new PedidoItem(o2, p3, 2, p3.getPreço());
+        PedidoItem oi4 = new PedidoItem(o3, p5, 2, p5.getPreço());
+
+        pedidoItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
