@@ -1,5 +1,7 @@
 package com.arturlogan.cursospringboot.entitites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,8 +21,11 @@ public class Produto {
     @ManyToMany
     @JoinTable(name = "db_produto_categoria",
             joinColumns = @JoinColumn(name = "produtoId"),
-    inverseJoinColumns = @JoinColumn(name = "categoriaId"))
+            inverseJoinColumns = @JoinColumn(name = "categoriaId"))
     private Set<Categoria> categorias = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.produto")
+    private Set<PedidoItem> items = new HashSet<>();
 
     public Produto(){
     }
@@ -75,6 +80,15 @@ public class Produto {
 
     public Set<Categoria> getCategorias() {
         return categorias;
+    }
+
+    @JsonIgnore
+    public Set<Pedido> getPedidos (){
+        Set<Pedido> set = new HashSet<>();
+        for (PedidoItem pedidoItem : items){
+            set.add(pedidoItem.getPedido());
+        }
+        return set;
     }
 
     @Override
