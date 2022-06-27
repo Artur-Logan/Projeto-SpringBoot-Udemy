@@ -59,6 +59,10 @@ public class PedidoItem {
         return quantidade;
     }
 
+    public Double getSubTotal(){
+        return preço * quantidade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

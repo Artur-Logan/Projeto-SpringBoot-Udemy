@@ -1,5 +1,7 @@
 package com.arturlogan.cursospringboot.entitites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class Pagamento {
     private Long id;
     private Instant momento;
 
+    @JsonIgnore
     @OneToOne
     @MapsId
     private Pedido pedido;
