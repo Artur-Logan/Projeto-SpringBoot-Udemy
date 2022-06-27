@@ -29,6 +29,9 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "clienteId")
     private Usuario cliente;
 
+    @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private Pagamento pagamento;
+
     @OneToMany(mappedBy = "id.pedido")
     private Set<PedidoItem> itens = new HashSet<>();
 
@@ -74,6 +77,14 @@ public class Pedido implements Serializable {
         if (pedidoStatus != null){
             this.pedidoStatus = pedidoStatus.getCodigo();
         }
+    }
+
+    public Pagamento getPagamento() {
+        return pagamento;
+    }
+
+    public void setPagamento(Pagamento pagamento) {
+        this.pagamento = pagamento;
     }
 
     public Set<PedidoItem> getItens(){
