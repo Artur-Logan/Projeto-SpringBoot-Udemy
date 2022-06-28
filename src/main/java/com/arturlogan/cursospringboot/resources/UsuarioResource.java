@@ -2,6 +2,7 @@ package com.arturlogan.cursospringboot.resources;
 
 import com.arturlogan.cursospringboot.entitites.Usuario;
 import com.arturlogan.cursospringboot.services.UsuarioService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +37,12 @@ public class UsuarioResource {
                 .path("/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).body(usuario);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id){
+        usuarioService.deletar(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
