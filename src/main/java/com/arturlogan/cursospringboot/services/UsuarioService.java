@@ -22,4 +22,10 @@ public class UsuarioService {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         return usuario.get();
     }
+
+    public Usuario salvar(Usuario usuario){
+        return usuarioRepository.save(usuario);
+    }
+
+
 }
