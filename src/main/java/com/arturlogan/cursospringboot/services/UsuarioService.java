@@ -2,8 +2,11 @@ package com.arturlogan.cursospringboot.services;
 
 import com.arturlogan.cursospringboot.entitites.Usuario;
 import com.arturlogan.cursospringboot.repositories.UsuarioRepository;
+import com.arturlogan.cursospringboot.services.exceptions.DatabaseException;
 import com.arturlogan.cursospringboot.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,9 +32,15 @@ public class UsuarioService {
     }
 
     public void deletar(Long id){
-        usuarioRepository.deleteById(id);
+        try{
+            usuarioRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+          throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
-    
+
     public Usuario atualizar(Long id, Usuario usuario){
         Usuario entity = usuarioRepository.getById(id);
         atualizarData(entity, usuario);
