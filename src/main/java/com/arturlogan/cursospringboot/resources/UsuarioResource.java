@@ -44,5 +44,9 @@ public class UsuarioResource {
         return ResponseEntity.noContent().build();
     }
 
-
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> atualizar(@PathVariable Long id, @RequestBody Usuario  usuario){
+        usuario = usuarioService.atualizar(id, usuario);
+        return ResponseEntity.ok().body(usuario);
+    }
 }
